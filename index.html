@@ -5,26 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIP Membership</title>
     <style>
-        body { background: #050505; color: #333; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; margin: 0; padding: 0; }
+        body { background: #050505; color: #e0e0e0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; margin: 0; padding: 0; }
         .page-wrap { min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding-top: 40px; text-align: center; color: white; }
         
-        /* Membership Card Styling */
-        .gold-card { background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); width: 90%; max-width: 400px; height: 230px; border-radius: 15px; padding: 20px; color: #1a1a1a; position: relative; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #91792e; box-sizing: border-box; margin-bottom: 30px; }
+        /* ORIGINAL Card Styling with Enhanced Gold */
+        .gold-card { 
+            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); 
+            width: 90%; max-width: 400px; height: 230px; border-radius: 15px; 
+            padding: 20px; color: #1a1a1a; position: relative; text-align: left; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7); border: 1px solid #91792e; 
+            box-sizing: border-box; margin-bottom: 30px; 
+        }
         .main-photo { width: 120px; height: 155px; border: 2px solid #1a1a1a; position: absolute; top: 45px; left: 20px; overflow: hidden; background: #eee; }
         .main-photo img { width: 100%; height: 100%; object-fit: cover; }
         .card-info { margin-left: 150px; margin-top: 40px; }
         
-        /* Button and Input Styling */
-        .btn-gold { background: #bf953f; color: #fff; padding: 15px; width: 80%; max-width: 300px; border-radius: 8px; font-weight: bold; cursor: pointer; text-transform: uppercase; border: none; font-size: 1.1rem; margin-top: 10px; }
-        .address-input { width: 85%; max-width: 380px; padding: 15px; margin: 10px 0; border-radius: 8px; border: 1px solid #bf953f; background: #222; color: white; font-size: 1rem; }
+        /* Luxury Gold Button */
+        .btn-gold { 
+            background: #bf953f; color: #fff; padding: 18px; width: 80%; 
+            max-width: 300px; border-radius: 8px; font-weight: bold; 
+            cursor: pointer; text-transform: uppercase; border: none; 
+            font-size: 1.1rem; letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(191, 149, 63, 0.3);
+        }
         
-        /* Dashboard/Status Styling */
+        .address-input { width: 85%; max-width: 380px; padding: 15px; margin: 10px 0; border-radius: 8px; border: 1px solid #bf953f; background: #111; color: white; font-size: 1rem; }
+        
+        /* Dashboard & Status (Kept Original Logic) */
         .shipping-container { background: white; min-height: 100vh; padding: 0; max-width: 500px; margin: 0 auto; color: #333; text-align: left; display: none; }
         .track-header { background: #0071ce; color: white; padding: 15px 20px; display: flex; align-items: center; font-size: 1.1rem; }
         .status-card { background: white; padding: 20px; margin-bottom: 10px; }
         .truck-icon-circle { background: #e6f2ff; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; }
         
-        /* Timeline */
         .timeline-container { position: relative; margin: 30px 0; padding: 0 10px; }
         .timeline-line { position: absolute; top: 5px; left: 15px; right: 15px; height: 3px; background: #cfd8dc; z-index: 1; }
         .timeline-progress { position: absolute; top: 5px; left: 15px; width: 66%; height: 3px; background: #0071ce; z-index: 2; }
@@ -40,7 +52,7 @@
 <body>
 
     <div id="step-landing" class="page-wrap section active">
-        <h1 style="color: #bf953f; text-transform: uppercase; letter-spacing: 2px;">VIP Membership</h1>
+        <h1 style="color: #bf953f; text-transform: uppercase; letter-spacing: 3px; font-weight: 300;">VIP Membership</h1>
         <div class="gold-card">
             <div style="font-weight:bold; font-size: 0.8rem; border-bottom: 1px solid #333; padding-bottom: 5px; margin-bottom: 10px;">MEMBERSHIP CARD</div>
             <div class="main-photo">
@@ -59,22 +71,24 @@
         <input type="text" id="form-name" class="address-input" placeholder="Full Name">
         <input type="text" id="form-address" class="address-input" placeholder="Street Address">
         <input type="text" id="form-city" class="address-input" placeholder="City, State, Zip">
-        <button class="btn-gold" onclick="saveAddress()">CONTINUE</button>
+        <button class="btn-gold" style="margin-top:20px;" onclick="saveAddress()">CONTINUE</button>
     </div>
 
-    <div id="step-dashboard" class="shipping-container section active-block" style="padding: 20px; text-align: center; display: none;">
-        <img src="https://bwipjs-api.metafloor.com/?bcid=code128&text=102431141920&scale=3" style="width: 100%; max-width: 300px; margin-top: 40px;">
-        <h1 style="font-size: 2.5rem; margin: 40px 0;">Package information</h1>
-        <div style="text-align: left;">
-            <div style="border-top: 1px solid #eee; padding: 20px 0; display: flex; align-items: center;">
-                <div style="font-size: 1.2rem; font-weight: bold; width: 40%;">Tracking<br>number</div>
-                <input type="text" id="tracking-code" style="width: 60%; font-size: 1.2rem; padding: 10px; border: 1px solid #ccc;" placeholder="Enter 1066652772">
+    <div id="step-dashboard" class="shipping-container section active-block">
+        <div style="padding: 20px; text-align: center;">
+            <img src="https://bwipjs-api.metafloor.com/?bcid=code128&text=102431141920&scale=3" style="width: 100%; max-width: 300px; margin-top: 40px;">
+            <h1 style="font-size: 2.5rem; margin: 40px 0;">Package information</h1>
+            <div style="text-align: left;">
+                <div style="border-top: 1px solid #eee; padding: 20px 0; display: flex; align-items: center;">
+                    <div style="font-size: 1.2rem; font-weight: bold; width: 40%;">Tracking<br>number</div>
+                    <input type="text" id="tracking-code" style="width: 60%; font-size: 1.2rem; padding: 10px; border: 1px solid #ccc;" placeholder="Enter number">
+                </div>
+                <button class="btn-gold" style="width: 100%; max-width: none;" onclick="checkTrack()">CHECK STATUS</button>
             </div>
-            <button class="btn-gold" style="width: 100%; max-width: none;" onclick="checkTrack()">CHECK STATUS</button>
         </div>
     </div>
 
-    <div id="step-status" class="shipping-container section active-block" style="display: none;">
+    <div id="step-status" class="shipping-container section active-block">
         <div class="track-header" onclick="showStep('step-dashboard')"><span style="margin-right:15px;">&#10094;</span> Track shipment</div>
         <div class="status-card">
             <div style="display: flex; align-items: center; margin-bottom: 20px;">
@@ -113,8 +127,11 @@
         function showStep(stepId) {
             document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
             const el = document.getElementById(stepId);
-            if(stepId.includes('shipping-container')) { el.style.display = 'block'; } 
-            else { el.style.display = stepId.includes('step-dashboard') || stepId.includes('step-status') ? 'block' : 'flex'; }
+            if(stepId.includes('shipping-container') || stepId === 'step-dashboard' || stepId === 'step-status') {
+                el.style.display = 'block';
+            } else {
+                el.style.display = 'flex';
+            }
         }
 
         function saveAddress() {
