@@ -5,50 +5,134 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIP Membership</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #1a1a1a;
-            color: white;
-            text-align: center;
-            padding: 50px;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: #262626;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid #ffd700;
-            margin-bottom: 20px;
-        }
-        h1 {
-            color: #ffd700;
-        }
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 15px 30px;
-            background-color: #ffd700;
-            color: black;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-        }
+        body { background: #050505; color: #333; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; margin: 0; padding: 0; }
+        .page-wrap { min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding-top: 40px; text-align: center; color: white; }
+        
+        /* Membership Card Styling */
+        .gold-card { background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); width: 90%; max-width: 400px; height: 230px; border-radius: 15px; padding: 20px; color: #1a1a1a; position: relative; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #91792e; box-sizing: border-box; margin-bottom: 30px; }
+        .main-photo { width: 120px; height: 155px; border: 2px solid #1a1a1a; position: absolute; top: 45px; left: 20px; overflow: hidden; background: #eee; }
+        .main-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .card-info { margin-left: 150px; margin-top: 40px; }
+        
+        /* Button and Input Styling */
+        .btn-gold { background: #bf953f; color: #fff; padding: 15px; width: 80%; max-width: 300px; border-radius: 8px; font-weight: bold; cursor: pointer; text-transform: uppercase; border: none; font-size: 1.1rem; margin-top: 10px; }
+        .address-input { width: 85%; max-width: 380px; padding: 15px; margin: 10px 0; border-radius: 8px; border: 1px solid #bf953f; background: #222; color: white; font-size: 1rem; }
+        
+        /* Dashboard/Status Styling */
+        .shipping-container { background: white; min-height: 100vh; padding: 0; max-width: 500px; margin: 0 auto; color: #333; text-align: left; display: none; }
+        .track-header { background: #0071ce; color: white; padding: 15px 20px; display: flex; align-items: center; font-size: 1.1rem; }
+        .status-card { background: white; padding: 20px; margin-bottom: 10px; }
+        .truck-icon-circle { background: #e6f2ff; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; }
+        
+        /* Timeline */
+        .timeline-container { position: relative; margin: 30px 0; padding: 0 10px; }
+        .timeline-line { position: absolute; top: 5px; left: 15px; right: 15px; height: 3px; background: #cfd8dc; z-index: 1; }
+        .timeline-progress { position: absolute; top: 5px; left: 15px; width: 66%; height: 3px; background: #0071ce; z-index: 2; }
+        .dot { width: 12px; height: 12px; background: #0071ce; border-radius: 50%; margin: 0 auto 10px; border: 3px solid white; box-shadow: 0 0 0 1px #0071ce; position: relative; z-index: 3; }
+        .step-label { font-size: 0.75rem; color: #616161; text-align: center; }
+        .alert-late { background: #fff8e1; border: 1px solid #ffe082; color: #5d4037; padding: 12px; border-radius: 4px; font-weight: 600; display: flex; align-items: center; font-size: 0.85rem; }
+        
+        .section { display: none; }
+        .active { display: flex; }
+        .active-block { display: block; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="static/nicole.jpg" alt="Nicole">
-        <h1>VIP Membership Access</h1>
-        <p>Welcome to the exclusive Vrime Heritage community.</p>
-        <a href="#" class="btn">JOIN THE ELITE</a>
+
+    <div id="step-landing" class="page-wrap section active">
+        <h1 style="color: #bf953f; text-transform: uppercase; letter-spacing: 2px;">VIP Membership</h1>
+        <div class="gold-card">
+            <div style="font-weight:bold; font-size: 0.8rem; border-bottom: 1px solid #333; padding-bottom: 5px; margin-bottom: 10px;">MEMBERSHIP CARD</div>
+            <div class="main-photo">
+                <img src="static/nicole.jpg" alt="Portrait">
+            </div>
+            <div class="card-info">
+                <span style="font-weight:bold; font-size:1.4rem;">Nicole Kidman</span><br>
+                <span style="font-weight:600; font-size:0.75rem; color: #444;">OFFICIAL VIP GUEST</span>
+            </div>
+        </div>
+        <button class="btn-gold" onclick="showStep('step-setup')">ENTER</button>
     </div>
+
+    <div id="step-setup" class="page-wrap section">
+        <h2 style="color: #bf953f;">Shipping Confirmation</h2>
+        <input type="text" id="form-name" class="address-input" placeholder="Full Name">
+        <input type="text" id="form-address" class="address-input" placeholder="Street Address">
+        <input type="text" id="form-city" class="address-input" placeholder="City, State, Zip">
+        <button class="btn-gold" onclick="saveAddress()">CONTINUE</button>
+    </div>
+
+    <div id="step-dashboard" class="shipping-container section active-block" style="padding: 20px; text-align: center; display: none;">
+        <img src="https://bwipjs-api.metafloor.com/?bcid=code128&text=102431141920&scale=3" style="width: 100%; max-width: 300px; margin-top: 40px;">
+        <h1 style="font-size: 2.5rem; margin: 40px 0;">Package information</h1>
+        <div style="text-align: left;">
+            <div style="border-top: 1px solid #eee; padding: 20px 0; display: flex; align-items: center;">
+                <div style="font-size: 1.2rem; font-weight: bold; width: 40%;">Tracking<br>number</div>
+                <input type="text" id="tracking-code" style="width: 60%; font-size: 1.2rem; padding: 10px; border: 1px solid #ccc;" placeholder="Enter 1066652772">
+            </div>
+            <button class="btn-gold" style="width: 100%; max-width: none;" onclick="checkTrack()">CHECK STATUS</button>
+        </div>
+    </div>
+
+    <div id="step-status" class="shipping-container section active-block" style="display: none;">
+        <div class="track-header" onclick="showStep('step-dashboard')"><span style="margin-right:15px;">&#10094;</span> Track shipment</div>
+        <div class="status-card">
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                <div class="truck-icon-circle">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="#0071ce"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                </div>
+                <div>
+                    <h2 style="margin:0; font-size: 1.2rem;">In transit, arriving late</h2>
+                    <p style="margin:4px 0; font-size: 0.9rem; color: #666;">Estimated arrival Tue, Oct 07</p>
+                </div>
+            </div>
+            <div class="timeline-container">
+                <div class="timeline-line"></div><div class="timeline-progress"></div>
+                <div style="display: flex; justify-content: space-between; position: relative;">
+                    <div style="width: 25%;"><div class="dot"></div><div class="step-label">Order placed</div></div>
+                    <div style="width: 25%;"><div class="dot"></div><div class="step-label">In progress</div></div>
+                    <div style="width: 25%;"><div class="dot" style="width:14px; height:14px; margin-top:-1px;"></div><div class="step-label" style="font-weight:bold; color:black;">On its way</div></div>
+                    <div style="width: 25%;"><div class="dot" style="background:#cfd8dc; box-shadow:none;"></div><div class="step-label">Delivered</div></div>
+                </div>
+            </div>
+            <div class="alert-late">
+                <span style="background:#b71c1c; color:white; border-radius:50%; width:18px; height:18px; display:inline-block; text-align:center; margin-right:10px; font-size:12px; line-height:18px;">!</span>
+                Your order's running late!
+            </div>
+        </div>
+        <div class="status-card" style="border-top: 8px solid #f4f7f9;">
+            <div style="font-weight:bold; margin-bottom:10px;">Shipping address</div>
+            <div id="display-address" style="line-height:1.6; color: #444;"></div>
+        </div>
+    </div>
+
+    <script>
+        const VALID_CODE = "1066652772";
+        let userData = { name: '', street: '', city: '' };
+
+        function showStep(stepId) {
+            document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+            const el = document.getElementById(stepId);
+            if(stepId.includes('shipping-container')) { el.style.display = 'block'; } 
+            else { el.style.display = stepId.includes('step-dashboard') || stepId.includes('step-status') ? 'block' : 'flex'; }
+        }
+
+        function saveAddress() {
+            userData.name = document.getElementById('form-name').value;
+            userData.street = document.getElementById('form-address').value;
+            userData.city = document.getElementById('form-city').value;
+            showStep('step-dashboard');
+        }
+
+        function checkTrack() {
+            const code = document.getElementById('tracking-code').value;
+            if(code === VALID_CODE) {
+                document.getElementById('display-address').innerHTML = `<b>${userData.name}</b><br>${userData.street}<br>${userData.city}`;
+                showStep('step-status');
+            } else {
+                alert("Invalid Tracking Number");
+            }
+        }
+    </script>
 </body>
 </html>
